@@ -1,0 +1,234 @@
+﻿
+PRODUCT REQUIREMENTS DOCUMENT
+AI Crypto Wallet Dashboard
+HakTa Global Hackathon 2025
+Powered by GitHub Copilot  ·  Built with Next.js  ·  MetaMask Integration
+Version 1.0  ·  February 2025
+Field
+Details
+Hackathon
+HakTa — 36-Hour Global Virtual Hackathon
+Timeline
+Feb 20 7:30 PM IST → Feb 22 7:30 AM IST
+Prize Track
+Grand Prize + Best GitHub Copilot Use
+Tech Stack
+Next.js 14, TypeScript, Tailwind CSS, Ethers.js, OpenAI API
+Wallet
+MetaMask (real integration via Web3)
+AI Tool
+GitHub Copilot (declared)
+
+
+1. Product Overview
+The AI Crypto Wallet Dashboard is a next-generation web application that connects to a user's MetaMask wallet and uses AI to transform raw blockchain data into clear, actionable insights. Think of it as Google Pay — but for crypto, with an AI financial advisor built in.
+Most crypto dashboards show you numbers. This one explains them. A first-time crypto user should be able to connect their wallet and immediately understand what they own, what it means, and what smart moves they can make — all explained in plain English by an AI assistant.
+This project is built entirely using GitHub Copilot and directly mirrors the vision of the AYA Community's own product: an AI-powered crypto wallet with lending, staking, and borrowing capabilities.
+
+2. Problem Statement
+2.1 The Problem
+Crypto is powerful but deeply confusing for most people. Even experienced users struggle to:
+Understand what their portfolio is actually worth in real-time
+Know whether they should stake, lend, or hold their assets
+Spot risky transactions or unusual wallet activity
+Get personalized advice without paying for a financial advisor
+
+2.2 The Opportunity
+By combining a real MetaMask wallet connection with an AI layer, we can give every crypto user their own personal AI financial advisor — one that understands their specific portfolio and gives advice in plain language.
+
+3. Solution
+A web dashboard where users:
+Connect their MetaMask wallet with one click
+See their full portfolio with live prices and AI-generated summaries
+Chat with an AI assistant about their crypto — &quot;Should I stake my ETH?&quot;
+Get risk analysis and staking/lending recommendations
+View transaction history explained in plain English
+
+The AI doesn't just show data — it interprets it, explains it, and guides the user like a knowledgeable friend who happens to understand DeFi.
+
+4. Features &amp; Scope
+4.1 Core Features (Must Have — MVP)
+Feature 1: MetaMask Wallet Connection
+One-click MetaMask connect button on landing page
+Display connected wallet address (truncated: 0x1234...abcd)
+Show ETH balance and network (Mainnet / Testnet)
+Disconnect option always visible
+Feature 2: Live Portfolio Dashboard
+Fetch token balances using Ethers.js + Alchemy/Infura RPC
+Display each token: name, symbol, balance, USD value
+Total portfolio value in USD with 24h change indicator
+Pie chart or bar chart showing asset distribution
+Live price data via CoinGecko API (free tier)
+Feature 3: AI Portfolio Summary
+On dashboard load, AI generates a 3-4 sentence plain-English summary of the wallet
+Example: &quot;Your wallet holds $1,240 worth of crypto. Your largest holding is ETH (72%). Your portfolio is down 3.2% in the last 24 hours, primarily due to a dip in MATIC.&quot;
+Powered by OpenAI GPT-4o-mini (cheap and fast)
+Feature 4: AI Chat Assistant
+Chat interface fixed to the right side of the dashboard
+User can ask questions like: &quot;Should I stake my ETH?&quot;, &quot;What is USDC?&quot;, &quot;Is my portfolio risky?&quot;
+AI has full context of the user's wallet (balances, tokens, recent transactions)
+Responses are clear, jargon-free, and friendly
+Disclaimer shown: &quot;This is not financial advice.&quot;
+Feature 5: Transaction History
+Last 10 transactions fetched from Etherscan API
+Each transaction shows: date, type, amount, from/to address
+AI generates a one-line plain English label for each transaction
+Example: &quot;You sent 0.5 ETH to a DeFi protocol (likely a swap or deposit)&quot;
+Feature 6: Staking &amp; Lending Recommendations
+AI analyzes the wallet and recommends staking or lending opportunities
+Example: &quot;You have 1.2 ETH idle. Consider staking it on Lido for ~4% APY.&quot;
+Static recommendations for demo (no actual DeFi protocol integration needed)
+Each recommendation shows estimated APY and risk level (Low / Medium / High)
+
+4.2 Bonus Features (Nice to Have — if time permits)
+Risk Score: AI assigns a risk score (1-10) to the portfolio with explanation
+Dark mode toggle
+Portfolio history chart (mock data is fine for demo)
+Share portfolio button (generates a shareable screenshot)
+
+5. User Flow
+Step
+What Happens
+1. Landing Page
+User sees a clean hero page: &quot;Your AI Crypto Advisor&quot; + Connect MetaMask button
+2. MetaMask Popup
+MetaMask extension opens, user approves connection
+3. Dashboard Loads
+Portfolio data fetches (tokens, prices, transactions)
+4. AI Summary Appears
+AI generates and streams a portfolio summary card
+5. User Explores
+User browses charts, transaction history, recommendations
+6. User Chats with AI
+User asks the AI assistant questions about their portfolio
+7. User Acts
+User sees staking recommendations and can copy protocol links
+
+6. Tech Stack &amp; Architecture
+6.1 Technology Choices
+Layer
+Technology
+Frontend Framework
+Next.js 14 (App Router)
+Language
+TypeScript
+Styling
+Tailwind CSS + shadcn/ui components
+Wallet Connection
+Ethers.js v6 + MetaMask browser extension
+Blockchain Data
+Alchemy or Infura RPC (free tier)
+Token Prices
+CoinGecko API (free, no key required for basic use)
+Transaction History
+Etherscan API (free tier, 5 calls/sec)
+AI / LLM
+OpenAI API (GPT-4o-mini for speed + cost)
+Charts
+Recharts or Chart.js
+Deployment
+Vercel (free, one-click deploy from GitHub)
+AI Coding Tool
+GitHub Copilot (declared — used throughout)
+
+6.2 Folder Structure
+ai-crypto-wallet-dashboard/├── app/│   ├── page.tsx              # Landing page (connect wallet)│   ├── dashboard/│   │   └── page.tsx          # Main dashboard│   ├── api/│   │   ├── ai-summary/       # POST: generate portfolio summary│   │   ├── ai-chat/          # POST: chat with AI assistant│   │   └── transactions/     # GET: fetch + label transactions│   └── layout.tsx├── components/│   ├── ConnectWallet.tsx     # MetaMask connect button│   ├── PortfolioCard.tsx     # Token balance cards│   ├── AISummary.tsx         # AI portfolio summary card│   ├── ChatAssistant.tsx     # Chat UI component│   ├── TransactionList.tsx   # Transaction history│   ├── RecommendationCard.tsx # Staking/lending cards│   └── PortfolioChart.tsx    # Pie/bar chart├── lib/│   ├── ethers.ts             # Wallet + balance helpers│   ├── coingecko.ts          # Price fetching│   ├── etherscan.ts          # Transaction history│   └── openai.ts             # AI prompt helpers├── types/│   └── index.ts              # TypeScript interfaces├── .env.local                # API keys└── README.md
+
+7. Environment Variables (.env.local)
+NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_keyETHERSCAN_API_KEY=your_etherscan_keyOPENAI_API_KEY=your_openai_key# CoinGecko does not require a key for basic usage# MetaMask is browser-side only, no key needed
+All free-tier. Sign up at: alchemy.com, etherscan.io/apis, platform.openai.com
+
+8. AI Prompt Templates
+8.1 Portfolio Summary Prompt
+Give GitHub Copilot this prompt context when building the /api/ai-summary route:
+System: You are a friendly crypto financial assistant.Analyze the user's wallet and give a 3-4 sentence plain-English summary.Be specific, use actual numbers, and avoid jargon.End with one actionable suggestion.User: Here is my wallet data:- Total Value: $1,240.50- Holdings: [{token: 'ETH', balance: 0.52, usd: 890}, ...]- 24h Change: -3.2%- Top holding: ETH (72% of portfolio)
+8.2 Chat Assistant System Prompt
+You are an AI crypto assistant with access to the user's wallet data.Answer questions clearly and simply. Always be helpful.For staking/lending questions, give general guidance.Always end with: 'This is not financial advice.'User wallet context: {inject wallet data as JSON here}
+
+9. Judging Criteria Alignment
+Criteria
+Our Approach
+Score Potential
+Quality of Idea
+AI meets crypto meets real MetaMask — directly mirrors the hackathon sponsor's own product vision
+★★★★★
+Technical Implementation
+Real MetaMask, live APIs, streaming AI responses, TypeScript — not toy code
+★★★★★
+Idea Sustainability
+Real use case. Can expand to actual DeFi integrations, lending, staking in future sprints
+★★★★☆
+Design
+Tailwind + shadcn/ui = polished out of the box. Clean dashboard layout with charts
+★★★★★
+Best Copilot Use (Bonus)
+Every file built with Copilot, documented in README with screenshots of Copilot suggestions
+★★★★★
+
+10. Recommended Build Order
+Follow this exact order to stay on track within 36 hours:
+Phase
+Task
+Details
+Time
+1
+Project Setup
+Next.js + TypeScript + Tailwind + shadcn/ui scaffold
+30 min
+2
+MetaMask Connect
+ConnectWallet.tsx component + Ethers.js integration
+1 hr
+3
+Token Balances
+Fetch ETH + ERC-20 balances, CoinGecko prices
+2 hrs
+4
+Dashboard UI
+Portfolio cards, pie chart, layout shell
+2 hrs
+5
+AI Summary
+/api/ai-summary route + AISummary.tsx component
+1.5 hrs
+6
+Transaction History
+Etherscan API + AI labeling per transaction
+2 hrs
+7
+AI Chat Assistant
+ChatAssistant.tsx + /api/ai-chat route
+2 hrs
+8
+Recommendations
+Hardcoded staking/lending cards with AI intro text
+1 hr
+9
+Polish &amp; Deploy
+Responsive design, error states, Vercel deploy
+1.5 hrs
+10
+Demo Video
+Record 2-min walkthrough, README with Copilot screenshots
+30 min
+
+11. GitHub Copilot Usage Tips
+To maximize Copilot's effectiveness and qualify for the Best Copilot Use prize:
+Write detailed comments before every function: Copilot completes code from intent
+Use Copilot Chat (Ctrl+I) to generate entire components from a description
+Ask Copilot to write TypeScript interfaces for your data structures first
+Let Copilot write all API route handlers — give it the expected input/output shape
+Screenshot Copilot suggestions in action for your README and demo video
+In your README, add a section: &quot;How we used GitHub Copilot&quot; with examples
+
+12. Submission Checklist
+✅ Public GitHub repository created within hackathon timeline
+✅ README with: problem, solution, tech stack, setup instructions, Copilot usage section
+✅ Working MetaMask connection (demo with a test wallet)
+✅ Live deployment on Vercel (free)
+✅ Demo video under 2 minutes showing the full user flow
+✅ Mark eligible for: Grand Prize + Best GitHub Copilot Use tracks
+✅ GitHub Copilot declared in README and submission form
+
+Good luck. Build fast. Ship it. 🚀
+HakTa Hackathon | AYA Community | February 2025
